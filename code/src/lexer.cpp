@@ -36,6 +36,8 @@ bool isSingleOperator(char c) {
     case ';':
     case '(':
     case ')':
+    case '{':
+    case '}':
         return true;
     default:
         return false;
@@ -106,20 +108,6 @@ void Lexer::stripQuotes(Token& token) {
     }
 }
 
-void Lexer::skipBraceComment() {
-    const int startLine = line_;
-    const int startCol = col_;
-    advance();  // '{'
-    while (!eof() && source_[pos_] != '}') {
-        advance();
-    }
-    if (eof()) {
-        diagnostics_.add("E301", "花括号注释未闭合", startLine, startCol);
-        return;
-    }
-    advance();  // '}'
-}
-
 void Lexer::skipLineComment() {
     advance();
     advance();
@@ -152,10 +140,6 @@ void Lexer::skipBlankAndComment() {
         const char c = source_[pos_];
         if (isBlank(c) || c == '\n') {
             advance();
-            continue;
-        }
-        if (c == '{') {
-            skipBraceComment();
             continue;
         }
         if (c == '/' && at(pos_ + 1) == '/') {

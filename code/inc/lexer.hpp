@@ -25,7 +25,6 @@ private:
     char advance();
 
     void skipBlankAndComment();
-    void skipBraceComment();
     void skipLineComment();
     void skipBlockComment();
 

@@ -15,7 +15,7 @@
     | (6,"char") (1,"g") (7,"=") (4,"\q") (7,";")
   8 | char h = "abc;
     | (6,"char") (1,"h") (7,"=") (9,"\"abc;")
-  9 | { 未闭合的注释
+  9 | /* 未闭合的注释
 
 --- 诊断 (9) ---
 tests/cases/t05_error.c:1:9: E101 非法字符：#
@@ -42,8 +42,8 @@ tests/cases/t05_error.c:7:12: E104 非法转义序列：\q
 tests/cases/t05_error.c:8:10: E105 字符串常量未闭合
   8 | char h = "abc;
     |          ^
-tests/cases/t05_error.c:9:1: E301 花括号注释未闭合
-  9 | { 未闭合的注释
+tests/cases/t05_error.c:9:1: E301 块注释未闭合
+  9 | /* 未闭合的注释
     | ^
 
 --- 统计 ---
