@@ -12,9 +12,11 @@
 | 测试结果 | `docs/测试结果.md` |
 | 使用说明 | `docs/使用说明.md` |
 | 预编译产物 | `lexer/bin/lexer-linux-x86_64` |
-| 实验报告 | `report/out/编译技术实验一报告-词法分析器.pdf` |
+| 实验报告 | `report/out/《编译技术》实验一报告-词法分析器.pdf` |
 
 ## 快速开始
+
+不想编译的话，从 [Releases](https://github.com/Rh-i/c-lexer/releases) 下载压缩包，解压后直接跑 `bin/` 里的可执行文件。
 
 ### 直接运行预编译版本（Linux x86_64）
 
