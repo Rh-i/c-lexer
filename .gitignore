@@ -15,3 +15,5 @@ CMakeCache.txt
 AI生成报告提示词.txt
 
 other/
+# 报告目录不纳入版本管理，成品 PDF 放在根目录
+report/
