@@ -1,0 +1,15 @@
+build/
+dist/
+.vs/
+.vscode/
+CMakeFiles/
+CMakeCache.txt
+*.o
+*.obj
+*.pdb
+
+# 课程提供的原始材料，不属于工程源码
+《编译技术》课程实验指导书实验1-词法分析器.docx
+报告撰写规范.docx
+报告模板.docx
+AI生成报告提示词.txt
