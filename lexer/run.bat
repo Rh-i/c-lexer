@@ -1,9 +1,11 @@
 @echo off
-rem 一键运行：优先用 bin\ 中的预编译产物，缺失时退回 build\，再缺失则现场构建
+chcp 65001 >nul
+rem 一键运行：优先用 bin\ 中的产物，缺失时退回 build\，再缺失则现场构建
 setlocal enabledelayedexpansion
 set "DIR=%~dp0"
 set "BIN=%DIR%bin\lexer-windows-x86_64.exe"
 
+if not exist "!BIN!" set "BIN=%DIR%bin\lexer.exe"
 if not exist "!BIN!" set "BIN=%DIR%build\Release\lexer.exe"
 if not exist "!BIN!" set "BIN=%DIR%build\lexer.exe"
 
@@ -18,3 +20,4 @@ if not exist "!BIN!" (
 )
 
 "!BIN!" %*
+exit /b %errorlevel%

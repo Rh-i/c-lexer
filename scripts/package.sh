@@ -37,7 +37,7 @@ cp "$ROOT/lexer/tests/cases/"*.c "$STAGE/tests/cases/"
 cp "$ROOT/lexer/tests/expected/"*.out "$STAGE/tests/expected/"
 cp "$ROOT/lexer/tests/run_tests.sh" "$ROOT/lexer/tests/run_tests.bat" "$STAGE/tests/"
 cp "$ROOT/lexer/examples/"*.c "$STAGE/examples/"
-cp "$ROOT/docs/使用说明.md" "$ROOT/docs/测试结果.md" "$STAGE/docs/"
+cp "$ROOT/docs/"*.md "$STAGE/docs/"
 cp "$ROOT/README.md" "$STAGE/"
 
 (cd "$ROOT/dist" && zip -qr "${NAME}.zip" "$NAME" && sha256sum "${NAME}.zip" > CHECKSUMS.txt)
