@@ -20,7 +20,7 @@
 | # | 交付物        | 路径                                                     |
 | - | ------------- | -------------------------------------------------------- |
 | 1 | 工程源代码    | `lexer/`（C++17 + CMake，4 个模块 + `main`）         |
-| 2 | 测试用 C 代码 | `lexer/tests/cases/t01…t06.c`                         |
+| 2 | 测试用 C 代码 | `lexer/tests/cases/t01…t07.c`                         |
 | 3 | 测试结果      | `lexer/tests/expected/*.out` + `docs/测试结果.md`    |
 | 4 | README        | `README.md`（交付物一览、构建与运行两步）              |
 | 5 | 使用说明      | `docs/使用说明.md`（输入格式、输出解读、错误码）       |
@@ -55,8 +55,8 @@
 │  │  ├─ lexer-linux-x86_64      本机编译，拿到即用
 │  │  └─ lexer-windows-x86_64.exe 需 mingw-w64 交叉编译，否则缺席
 │  └─ tests/
-│     ├─ cases/t01…t06.c
-│     ├─ expected/t01…t06.out
+│     ├─ cases/t01…t07.c
+│     ├─ expected/t01…t07.out
 │     ├─ run_tests.sh            diff 比对，输出汇总
 │     └─ run_tests.bat           fc /b 比对，输出汇总
 ├─ report/
@@ -203,7 +203,7 @@ lexer\build\Release\lexer.exe 你的文件.c
 | `t03_number.c`      | 十进制/八进制/十六进制、`L/U/UL/LL`、`1.5`/`.5`/`1.`/`1e-3`/`1.5f`           |
 | `t04_char_string.c` | 转义、空串、含引号转义、字符串里的 `//` 不当注释                                       |
 | `t05_error.c`       | 非法字符、字符过长、字符串未闭合、`0x`/`09`/`1e` 数字错误、块注释未闭合            |
-| `t06_edge.c`        | 空文件、纯注释、行首制表符、CRLF、末尾无换行                                             |
+| `t06_edge.c`        | 纯注释、空行、行首制表符、末尾无换行                                             |
 
 `run_tests.sh`（Linux）与 `run_tests.bat`（Windows）逐用例运行并与 `expected/*.out` 比对，打印 PASS/FAIL 表，结果写入 `docs/测试结果.md`，作为报告第 5 章表格来源。
 
@@ -243,7 +243,7 @@ lexer\build\Release\lexer.exe 你的文件.c
 | 阶段 | 内容                                                                               | 验收                              |
 | ---- | ---------------------------------------------------------------------------------- | --------------------------------- |
 | P1   | `token`/`keyword_table`/`diagnostic`/`lexer`/`main` + CMake + `run.sh`/`run.bat` | 编译无警告，`t01` 输出正确      |
-| P2   | 6 个用例与期望输出，`run_tests.sh`/`run_tests.bat` 跑通                            | 6/6 PASS                          |
+| P2   | 7 个用例与期望输出，`run_tests.sh`/`run_tests.bat` 跑通                            | 7/7 PASS                          |
 | P3   | `README.md`、`docs/使用说明.md`                                                | 按文档两步可跑通                  |
 | P4   | 报告 `chapters/`、`front/`、9 图 11 表                                         | 字数≥8000、编号连续              |
 | P5   | `latexmk -xelatex` 出 PDF 并校分页                                               | 无缺图、无 Overfull、目录页码正确 |

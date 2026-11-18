@@ -11,7 +11,7 @@ if [ ! -x "$BIN" ]; then
     BIN="build/lexer"
 fi
 
-REPORT="../../docs/测试结果.md"
+REPORT="../docs/测试结果.md"
 mkdir -p "$(dirname "$REPORT")"
 {
     echo "# 测试结果"
