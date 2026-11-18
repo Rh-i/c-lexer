@@ -1,7 +1,10 @@
+#include <algorithm>
 #include <cstdio>
+#include <filesystem>
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <system_error>
 #include <vector>
 
 #ifdef _WIN32
@@ -10,8 +13,8 @@
 #include <windows.h>
 #endif
 
-#include "lexer/lexer.hpp"
-#include "lexer/token.hpp"
+#include "lexer.hpp"
+#include "token.hpp"
 
 namespace {
 
@@ -29,6 +32,12 @@ struct Stats {
     int base16 = 0;
 };
 
+bool isRegularFile(const std::string& path) {
+    std::error_code ec;
+    const std::filesystem::path target = std::filesystem::u8path(path);
+    return std::filesystem::is_regular_file(target, ec) && !ec;
+}
+
 std::string readAll(const std::string& path, bool& ok) {
     std::ifstream in(path, std::ios::binary);
     if (!in) {
@@ -37,7 +46,7 @@ std::string readAll(const std::string& path, bool& ok) {
     }
     std::ostringstream buffer;
     buffer << in.rdbuf();
-    ok = true;
+    ok = !in.bad();
     return buffer.str();
 }
 
@@ -84,6 +93,11 @@ int run(const std::vector<std::string>& args) {
     }
 
     const std::string& path = args[1];
+    if (!isRegularFile(path)) {
+        std::fprintf(stderr, "不是可读取的文件: %s\n", path.c_str());
+        return 2;
+    }
+
     bool ok = false;
     const std::string source = readAll(path, ok);
     if (!ok) {
@@ -102,12 +116,15 @@ int run(const std::vector<std::string>& args) {
     }
 
     const std::vector<std::string> lines = splitLines(source);
+    const int width = static_cast<int>(
+        std::max<std::size_t>(3, std::to_string(lines.size()).size()));
+    const std::string tokenPrefix(static_cast<std::size_t>(width) + 1, ' ');
     std::printf("=== %s ===\n", path.c_str());
 
     std::size_t index = 0;
     for (std::size_t i = 0; i < lines.size(); ++i) {
         const int lineNumber = static_cast<int>(i + 1);
-        std::printf("%3d | %s\n", lineNumber, lines[i].c_str());
+        std::printf("%*d | %s\n", width, lineNumber, lines[i].c_str());
 
         std::string row;
         while (index < tokens.size() && tokens[index].line == lineNumber) {
@@ -117,11 +134,12 @@ int run(const std::vector<std::string>& args) {
         }
         if (!row.empty()) {
             row.pop_back();
-            std::printf("    | %s\n", row.c_str());
+            std::printf("%s| %s\n", tokenPrefix.c_str(), row.c_str());
         }
     }
     while (index < tokens.size()) {
-        std::printf("    | %s\n", lexer::formatToken(tokens[index]).c_str());
+        std::printf("%s| %s\n", tokenPrefix.c_str(),
+                    lexer::formatToken(tokens[index]).c_str());
         ++index;
     }
 

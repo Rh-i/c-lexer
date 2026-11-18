@@ -8,10 +8,10 @@
 
 | 位置                             | 内容                                 |
 | -------------------------------- | ------------------------------------ |
-| `lexer/include`、`lexer/src` | 源代码                               |
-| `lexer/bin`                    | 可执行文件（Linux x86_64 静态链接；Windows 版为同一目录下的 exe） |
-| `lexer/examples`               | 两个示例源程序                       |
-| `lexer/tests`                  | 测试用例、期望输出、比对脚本         |
+| `code/inc`、`code/src` | 源代码                               |
+| `code/bin`                    | 可执行文件（Linux x86_64 静态链接；Windows 版为同一目录下的 exe） |
+| `code/examples`               | 两个示例源程序                       |
+| `code/tests`                  | 测试用例、期望输出、比对脚本         |
 | `docs`                         | 使用说明、测试结果、开发与构建说明 |
 | `report/out`                   | 实验报告                             |
 | `report/latex`                 | 报告源文件                           |
@@ -19,13 +19,13 @@
 ## 运行
 
 ```bash
-./lexer/bin/lexer-linux-x86_64 源程序.c
+./code/bin/lexer-linux-x86_64 源程序.c
 ```
 
 示例：
 
 ```bash
-./lexer/bin/lexer-linux-x86_64 lexer/examples/simple.c
+./code/bin/lexer-linux-x86_64 code/examples/simple.c
 ```
 
 命令行参数只有一个 `-h`，打印用法。程序的退出码见下文。
@@ -33,7 +33,7 @@
 ## 输出格式
 
 ```
-=== lexer/examples/simple.c ===
+=== code/examples/simple.c ===
   1 | { 最小示例：整数与浮点各声明一次 }
   2 | int main()
     | (6,"int") (6,"main") (7,"(") (7,")")
@@ -112,4 +112,4 @@ float if     int   long  main   return    static switch unsigned void while
 
 ## 测试
 
-七个用例覆盖正常程序、注释、数字、字符与字符串、错误与边界情形，逐字节比对期望输出，全部通过，结果见 `docs/测试结果.md`。比对脚本为 `lexer/tests/run_tests.sh`。
+七个用例覆盖正常程序、注释、数字、字符与字符串、错误与边界情形，逐字节比对期望输出，全部通过，结果见 `docs/测试结果.md`。比对脚本为 `code/tests/run_tests.sh`。

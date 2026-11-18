@@ -13,7 +13,7 @@ add_executable(lexer
     src/lexer.cpp
     src/main.cpp)
 
-target_include_directories(lexer PRIVATE include)
+target_include_directories(lexer PRIVATE inc)
 
 if (MSVC)
     target_compile_options(lexer PRIVATE /W4 /utf-8)

@@ -1,9 +1,9 @@
-#include "lexer/lexer.hpp"
+#include "lexer.hpp"
 
 #include <cctype>
 #include <string>
 
-#include "lexer/keyword_table.hpp"
+#include "keyword_table.hpp"
 
 namespace lexer {
 namespace {

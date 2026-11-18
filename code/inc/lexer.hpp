@@ -2,8 +2,8 @@
 
 #include <string>
 
-#include "lexer/diagnostic.hpp"
-#include "lexer/token.hpp"
+#include "diagnostic.hpp"
+#include "token.hpp"
 
 namespace lexer {
 

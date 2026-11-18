@@ -1,4 +1,4 @@
-#include "lexer/keyword_table.hpp"
+#include "keyword_table.hpp"
 
 #include <algorithm>
 #include <array>

@@ -3,15 +3,32 @@
 set -u
 
 cd "$(dirname "$0")/.." || exit 2
-BIN="${BIN:-build/lexer}"
 
-if [ ! -x "$BIN" ]; then
+BIN="${LEXER_BIN:-${BIN:-}}"
+if [ -z "$BIN" ]; then
+    for candidate in build/lexer bin/lexer-linux-* bin/lexer; do
+        if [ -x "$candidate" ]; then
+            BIN="$candidate"
+            break
+        fi
+    done
+fi
+
+if [ -z "$BIN" ] && [ -f CMakeLists.txt ]; then
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release > /dev/null || exit 2
     cmake --build build -j > /dev/null || exit 2
     BIN="build/lexer"
 fi
 
+if [ -z "$BIN" ] || [ ! -x "$BIN" ]; then
+    echo "未找到可执行文件" >&2
+    exit 2
+fi
+
 REPORT="../docs/测试结果.md"
+if [ ! -d "../docs" ]; then
+    REPORT="docs/测试结果.md"
+fi
 mkdir -p "$(dirname "$REPORT")"
 {
     echo "# 测试结果"

@@ -1,5 +1,6 @@
-#include "lexer/diagnostic.hpp"
+#include "diagnostic.hpp"
 
+#include <algorithm>
 #include <sstream>
 
 namespace lexer {
@@ -20,13 +21,13 @@ std::string renderDiagnostic(const Diagnostic& diag,
     out << fileName << ':' << diag.line << ':' << diag.col << ": " << diag.code << ' '
         << diag.message << '\n';
 
-    std::string number = std::to_string(diag.line);
-    while (number.size() < 3) {
-        number.insert(number.begin(), ' ');
-    }
+    const std::string digits = std::to_string(diag.line);
+    const std::size_t width = std::max<std::size_t>(3, digits.size());
+    std::string number = digits;
+    number.insert(0, width - digits.size(), ' ');
     out << number << " | " << sourceLine << '\n';
 
-    out << "    | ";
+    out << std::string(width + 1, ' ') << "| ";
     for (int i = 1; i < diag.col; ++i) {
         const std::size_t index = static_cast<std::size_t>(i - 1);
         const char ch = index < sourceLine.size() ? sourceLine[index] : ' ';
